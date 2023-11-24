@@ -1,0 +1,11 @@
+{
+  "name": "redirect-pixel-app",
+  "vendor": "tiendadexime1",
+  "version": "0.1.0",
+  "title": "redirect-pixel-app",
+  "description": "Redirect Pixel App",
+  "builders": {
+    "pixel": "0.x"
+  },
+  "$schema": "https://raw.githubusercontent.com/vtex/node-vtex-api/master/gen/manifest.schema"
+}

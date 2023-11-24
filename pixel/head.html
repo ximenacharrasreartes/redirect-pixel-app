@@ -1,0 +1,60 @@
+<script>
+  // Determina la marca de redirección basándose en el hostname
+  function getRedirectBrand(hostName) {
+    console.log('hostname:', hostName);
+    if (hostName.includes('tiendadexime1')) {
+      return 'marca1';
+    }
+    return 'marcaDefault';
+  }
+
+  // Determina el dominio de redirección basándose en el nombre de la tienda.
+  function getRedirectDomain(storeName) {
+    console.log('storeNamea:', storeName);
+    if (storeName.includes('tiendadexime1')) {
+      return 'marca1';
+    }
+    return 'dominioDefault';
+  }
+
+  // Función para redirigir a la URL de la marca
+  function redirectToBrand(href) {
+   
+    if (href.includes('login') || href.includes('checkout') || href.includes('account') || href.includes('auth')) {
+      console.log('Redirigiendo a: https://marca1.myvtex.com/' + href.split('/').pop());
+      window.location.href = `https://marca1.myvtex.com/${href.split('/').pop()}`;
+      return true;
+    }
+    
+    return false;
+  }
+
+  // Función para manejar la redirección y los eventos de clic en los enlaces
+  (function () {
+    let lastHref = window.location.href.toLocaleLowerCase();
+    console.log('URL inicial:', lastHref);
+
+    // Ejecutar redirección 
+    redirectToBrand(lastHref);
+
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', function (event) {
+        const clickedHref = this.getAttribute('href').toLocaleLowerCase();
+        console.log('Enlace clickeado:', clickedHref);
+        if (redirectToBrand(clickedHref)) {
+          event.preventDefault();
+        }
+      });
+    });
+
+    // Verificar cambios
+    setInterval(() => {
+      const currentHref = window.location.href.toLocaleLowerCase();
+      if (currentHref !== lastHref) {
+        if (redirectToBrand(currentHref)) {
+          lastHref = currentHref;
+        }
+      }
+    }, 500); 
+  })();
+</script>
